@@ -50,7 +50,7 @@ jobs:
           context: ./service_a
           file: ./service_a/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-service_a:latest
+          tags: ghcr.io/${{ github.actor }}/mlops-service_a:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -61,7 +61,7 @@ jobs:
           context: ./service_b
           file: ./service_b/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-service_b:latest
+          tags: ghcr.io/${{ github.actor }}/mlops-service_b:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

@@ -7,12 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Build Docker image for service_a
+      run: docker build ./service_a --file ./service_a/Dockerfile --tag service_a:$(date +%s)
+
+    - name: Build Docker image for service_b
+      run: docker build ./service_b --file ./service_b/Dockerfile --tag service_b:$(date +%s)

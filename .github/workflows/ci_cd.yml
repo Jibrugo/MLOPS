@@ -15,7 +15,7 @@ jobs:
     steps:
     # Étape 1 : Récupérer le code source
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # Étape 2 : Configurer Docker
     - name: Set up Docker Buildx
@@ -30,22 +30,31 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    # Étape 4 : Construire l'image Docker et la pousser (si nécessaire)
-    - name: Build and push Docker image
+    # Étape 4 : Construire les images Docker pour chaque service
+    - name: Build Docker image for service_a
       uses: docker/build-push-action@v2
       with:
-        context: .
-        push: false  # Mettre à true si tu veux pousser l'image vers un registre (ex: Docker Hub)
-        tags: user_name/app_name:latest
+        context: ./service_a  # Spécifier le contexte pour service_a
+        file: ./service_a/Dockerfile
+        push: false  # Mettre à true si on veut pousser l'image
+        tags: user_name/service_a:latest
+
+    - name: Build Docker image for service_b
+      uses: docker/build-push-action@v2
+      with:
+        context: ./service_b  # Spécifier le contexte pour service_b
+        file: ./service_b/Dockerfile
+        push: false
+        tags: user_name/service_b:latest
 
     # Étape 5 : Lancer les tests avec Docker Compose
     - name: Run tests
       run: |
         docker-compose up -d  # Lancer les services en mode détaché
-        docker-compose exec app pytest  # Lance les tests (remplace `app` par le nom de ton service)
-        docker-compose down  # Arrêter et nettoyer les conteneurs après les tests
+        docker-compose exec service_a pytest  # Remplace par ton service qui gère les tests
+        docker-compose down  # Nettoyer après les tests
 
-    # Étape 6 : Déploiement (si tu veux un déploiement automatique)
+    # Étape 6 : Déploiement (si nécessaire)
     - name: Deploy to production (exemple SSH)
       run: |
-        ssh user@your_server "docker pull user_name/app_name:latest && docker-compose up -d"
+        ssh user@your_server "docker pull user_name/service_a:latest && docker pull user_name/service_b:latest && docker-compose up -d"

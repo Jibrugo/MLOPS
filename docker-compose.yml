@@ -12,31 +12,22 @@ services:
     ports:
       - "5432:5432"
 
-  service_b:
-    build:
-      context: ./service_b
-    volumes:
-      - /tmp:/tmp  # Partage du volume pour Unix Socket
-    ports:
-      - "8001:8001"  # Exemple de port exposé pour Service B
-    environment:
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/mydatabase
-    depends_on:
-      - service_a  # Service B attend Service A pour créer le socket
-      - db
-    restart: always
-
   service_a:
     build:
       context: ./service_a
-    volumes:
-      - /tmp:/tmp  # Partage du volume pour Unix Socket
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/mydatabase
     depends_on:
-      - db  # Service A dépend de db uniquement
+      - service_b
+    restart: always
+
+  service_b:
+    build:
+      context: ./service_b
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
     restart: always
 
 volumes:

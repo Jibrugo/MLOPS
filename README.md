@@ -10,9 +10,26 @@ Les deux séances de TD seront consacrées au déploiement (ingénierie logiciel
 
 1. Gérer la communication entre des microservices (API) avec Docker Compose, via des Domain Unix Sockets.
 2. Ajouter une base de données dans l'écosystème.
+--- Réponse 2 ---
+
+
+
 3. Introduire les GitHub Actions (.github/workflows/ci_cd.yml).
+--- Réponse 3 ---
+
+
+
 4. L'utilisation de Nginx est-elle nécessaire ? (Questions)
+--- Réponse 4 ---
+
+
+
+
 5. Migrer de Docker Compose vers Kubernetes (Minikube) ? (Questions donc pas à implem mais argumenter quel intérêt d'avoir minikube car substitut)
+--- Réponse 5 ---
+
+
+
 
 ### Lien vers la base commune
 
@@ -36,6 +53,11 @@ Il s'agit de concevoir une solution prenant en compte les éléments mentionnés
 ## Partie III – Un portail web pour tous les gouvernés (conception et architecture de système pour du ML)
 
 Il s'agit de concevoir une plateforme d'annotation automatique de données brutes. Cette plateforme devra héberger des outils de traitement automatique des langues.
+--- Partie 3 Explication ---
+
+
+
 
 ---
 
+ 

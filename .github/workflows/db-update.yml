@@ -1,0 +1,19 @@
+name: DB Update Notifier
+
+on:
+  push:
+    paths:
+      - "migrations/**"
+  pull_request:
+    paths:
+      - "migrations/**"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Send notification
+        run: echo "Database schema updated! Review migrations."
